@@ -1,0 +1,20 @@
+const express = require("express");
+const User = require("../models/User");
+
+const router = express.Router();
+
+router.post("/users", async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        await newUser.save();
+        res.status(201).json({ message: "User created successfully", user: newUser });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+router.get("/test", (req, res) => {
+    res.json({ message: "Route is working!" });
+});
+
+
+module.exports = router; 
